@@ -10,7 +10,11 @@ let puntosJugador=0,
 const puntosHtml= document.querySelectorAll('small');
 
 const divCartasJugador = document.querySelector('#jugador-cartas');
+
 const divCartasComputador = document.querySelector('#computadora-cartas');
+
+const btnDetener =document.querySelector('#btnDetener');
+const btnNuevo =document.querySelector('#btnNuevo');
 
 //reference html
 const btnPedir= document.querySelector('#btnPedir');
@@ -102,13 +106,32 @@ btnPedir.addEventListener('click',() =>{
        if(puntosJugador > 21){
            console.log('Perdiste')
            btnPedir.disabled=true;
+           btnDetener.disabled = true;
            turnoComputadora(puntosJugador);    
        }
        else if(puntosJugador ===21){
         console.log('21,genial ganaste!');
         btnPedir.disabled=true;
+        btnDetener.disabled = true;
         turnoComputadora(puntosJugador); 
        }    
     });
 
- 
+    btnDetener.addEventListener('click',() =>{
+        btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
+    });
+    
+    btnNuevo.addEventListener('click',() =>{
+        deck=[];
+        puntosJugador=0;
+        puntosComputadora=0;
+        puntosHtml[0].innerText = puntosJugador;
+        puntosHtml[1].innerText = puntosComputadora;
+        divCartasJugador.innerHTML='';
+        divCartasComputador.innerHTML='';
+        btnPedir.disabled=false;
+        btnDetener.disabled = false;
+        crearDeck();
+    });
